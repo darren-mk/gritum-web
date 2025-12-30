@@ -1,0 +1,16 @@
+---
+// src/pages/report/[id].astro
+
+// 전역 설정이 'static'일 때, 이 한 줄이 있으면
+// Astro는 "아, 이 페이지만 예외적으로 서버에서 실시간으로 그릴게!"라고 이해합니다.
+export const prerender = false;
+
+const { id } = Astro.params;
+---
+
+<html lang="en">
+  <body>
+    <h1>Report Detail View</h1>
+    <p>ID: <strong>{id}</strong></p>
+  </body>
+</html>
