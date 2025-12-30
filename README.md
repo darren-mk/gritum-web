@@ -38,6 +38,38 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+# 🐳 Docker Build & Test Guide (Grita)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This document outlines the process for containerizing the grita service and verifying it in a local environment for Bitem Labs LLC.
+
+---
+
+## 1. Prerequisites
+* **Docker Desktop**: Must be running, and the engine status should be 'running'.
+* **Dockerfile**: Must be located in the project root directory.
+
+## 2. Build Image
+We use the **BuildKit (buildx)** method, which is the current standard for Docker, to create the image. This method offers faster build speeds and better cache management.
+
+# Command to build:
+docker buildx build -t grita-app .
+
+> **Note**: While the legacy 'docker build -t grita-app .' still works, it is deprecated. Using buildx is highly recommended for future-proofing.
+
+## 3. Run & Test Container (Local)
+Verify that the built image runs correctly in a simulated server environment.
+
+# Command to run:
+docker run -p 8080:8080 grita-app
+
+* **Access URL**: http://localhost:8080
+* **To Stop**: Press Ctrl + C in your terminal.
+
+## 4. Command Summary
+
+| Purpose | Command |
+| :--- | :--- |
+| **Build Image** | docker buildx build -t grita-app . |
+| **Run Container** | docker run -p 8080:8080 grita-app |
+| **List Images** | docker images |
+| **Check Running Containers** | docker ps |
