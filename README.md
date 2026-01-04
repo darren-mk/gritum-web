@@ -1,75 +1,32 @@
-# Astro Starter Kit: Minimal
+# SolidStart
 
-```sh
-pnpm create astro@latest -- --template minimal
+Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
+
+## Creating a project
+
+```bash
+# create a new project in the current directory
+npm init solid@latest
+
+# create a new project in my-app
+npm init solid@latest my-app
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Developing
 
-## 🚀 Project Structure
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-Inside of your Astro project, you'll see the following folders and files:
+```bash
+npm run dev
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Building
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Solid apps are built with _presets_, which optimise your project for deployment to different environments.
 
-Any static assets, like images, can be placed in the `public/` directory.
+By default, `npm run build` will generate a Node app that you can run with `npm start`. To use a different preset, add it to the `devDependencies` in `package.json` and specify in your `app.config.js`.
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-# 🐳 Docker Build & Test Guide (Grita)
-
-This document outlines the process for containerizing the grita service and verifying it in a local environment for Bitem Labs LLC.
-
----
-
-## 1. Prerequisites
-* **Docker Desktop**: Must be running, and the engine status should be 'running'.
-* **Dockerfile**: Must be located in the project root directory.
-
-## 2. Build Image
-We use the **BuildKit (buildx)** method, which is the current standard for Docker, to create the image. This method offers faster build speeds and better cache management.
-
-# Command to build:
-docker buildx build -t grita-app .
-
-> **Note**: While the legacy 'docker build -t grita-app .' still works, it is deprecated. Using buildx is highly recommended for future-proofing.
-
-## 3. Run & Test Container (Local)
-Verify that the built image runs correctly in a simulated server environment.
-
-# Command to run:
-docker run -p 8080:8080 grita-app
-
-* **Access URL**: http://localhost:8080
-* **To Stop**: Press Ctrl + C in your terminal.
-
-## 4. Command Summary
-
-| Purpose | Command |
-| :--- | :--- |
-| **Build Image** | docker buildx build -t grita-app . |
-| **Run Container** | docker run -p 8080:8080 grita-app |
-| **List Images** | docker images |
-| **Check Running Containers** | docker ps |
+## This project was created with the [Solid CLI](https://github.com/solidjs-community/solid-cli)
