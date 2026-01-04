@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/MainLayout.astro';
+import LoginForm from '../components/LoginForm.jsx';
+---
+
+<Layout title="Login | Bitem Labs">
+  <main class="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 p-4">
+    <div class="mb-8 text-center">
+      <h1 class="text-2xl font-black text-blue-600 tracking-tighter">BITEM LABS</h1>
+    </div>
+
+    <LoginForm client:load />
+
+    <p class="mt-8 text-sm text-gray-400">
+      &copy; 2026 Bitem Labs LLC. All rights reserved.
+    </p>
+  </main>
+</Layout>
