@@ -1,25 +1,22 @@
-import { createSignal } from "solid-js";
+import { MetaProvider, Title } from "@solidjs/meta";
+import { Router } from "@solidjs/router";
+import { FileRoutes } from "@solidjs/start/router";
+import { Suspense } from "solid-js";
 import "./app.css";
 
 export default function App() {
-  const [getCount, setCount] = createSignal(0);
-
   return (
-    <main>
-    <h1>Hello world!</h1>
-    <h1 class="text-3xl font-bold underline">
-        Hello world!
-    </h1>
-    <button class="increment" onClick={() => setCount(getCount() + 1)} type="button">
-        Clicks: {getCount()}
-    </button>
-    <p>
-    Visit{" "}
-    <a href="https://start.solidjs.com" target="_blank">
-        start.solidjs.com
-    </a>{" "}
-        to learn how to build SolidStart apps.
-      </p>
-    </main>
+    <Router
+      root={(props) => (
+        <MetaProvider>
+          <Title>Bitem Labs</Title>
+          <div class="min-h-screen bg-gray-50">
+            <Suspense>{props.children}</Suspense>
+          </div>
+        </MetaProvider>
+      )}
+    >
+      <FileRoutes />
+    </Router>
   );
 }
