@@ -2,6 +2,7 @@
   "name": "example-bare",
   "type": "module",
   "scripts": {
+    "sync": "openapi-typescript http://localhost:3000/openapi.json -o ./src/api-spec-gen.ts",
     "dev": "vinxi dev --port 5173",
     "build": "vinxi build",
     "start": "vinxi start"
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "openapi-typescript": "^7.10.1",
     "tailwindcss": "^4.1.18"
   }
 }
