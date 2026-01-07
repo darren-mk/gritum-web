@@ -1,61 +1,72 @@
-import { createResource, Show } from "solid-js";
+// src/routes/dashboard.tsx
+import { createResource, For, Show } from "solid-js";
 import { Title } from "@solidjs/meta";
-import { ClientProfile } from "../types";
+import { ApiKey } from "../types";
 
-const fetchUserProfile = async (): Promise<ClientProfile> => {
-  const response = await fetch("/api/dashboard/me");
-  if (!response.ok) throw new Error("Unauthorized");
-  return response.json();
+const fetchApiKeys = async (): Promise<ApiKey[]> => {
+  const res = await fetch("/api/dashboard/api-keys");
+  if (!res.ok) return [];
+  return res.json();
 };
 
-export default function Dashboard() {
-  const [user] = createResource(fetchUserProfile);
+function UpperSection() { return (
+  <section class="mb-12 flex justify-between items-end">
+      <div>
+          <h1 class="text-4xl font-black text-gray-900 tracking-tight">Console</h1>
+          <p class="text-gray-500 mt-1">Manage your API services for Bitem Labs.</p>
+      </div>
+      <div class="text-right">
+          <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Logged</p>
+      </div>
+  </section>)};
 
-  // 렌더링 시점에 데이터 상태를 확인합니다.
-  console.log("User data:", user());
-  console.log("Loading state:", user.loading);
-  console.log("Error state:", user.error);
+export default function Dashboard() {
+  const [keys] = createResource<ApiKey[]>(fetchApiKeys);
 
   return (
     <main class="max-w-6xl mx-auto px-6 py-12">
-        <Title>Dashboard | Bitem Labs</Title>
-
-        <header class="mb-12">
-            <h1 class="text-4xl font-black text-gray-900 tracking-tight">Console</h1>
-            <p class="text-gray-500 mt-2">Manage your AI video production and API services.</p>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* 사용자 프로필 카드 */}
-            <div class="p-8 bg-white border border-gray-100 rounded-3xl shadow-sm">
-                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Account</h3>
-                
-                <Show when={!user.loading} fallback={<div class="animate-pulse h-12 bg-gray-100 rounded-lg" />}>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-xs text-gray-400 mb-1">User ID</p>
-                            <code class="text-sm font-mono bg-blue-50 text-blue-700 px-3 py-1 rounded-md break-all">
-                                {user()?.id}
-                            </code>
-                        </div>
-                        <p class="text-sm text-green-600 font-medium">● System Connected</p>
-                    </div>
-                </Show>
-
-                <Show when={user.error}>
-                    <p class="text-red-500 text-sm">Session expired. Please login again.</p>
-                </Show>
-            </div>
-
-            {/* 서비스 현황 카드 (예시) */}
-            <div class="md:col-span-2 p-8 bg-gradient-to-br from-gray-900 to-blue-900 rounded-3xl text-white shadow-xl">
-                <h3 class="text-lg font-bold mb-2">AI Video Engine</h3>
-                <p class="text-blue-200 text-sm mb-8">Your backend API service is ready to process requests.</p>
-                <button class="px-6 py-3 bg-white text-blue-900 rounded-xl font-bold hover:bg-blue-50 transition-all active:scale-95">
-                    Create New API Key
+        <Title>Console | Bitem Labs</Title>
+        <UpperSection />
+        {/* 메인 섹션: API Keys 테이블 */}
+        <section class="bg-white border border-gray-100 rounded-3xl shadow-sm overflow-hidden">
+            <div class="p-8 border-b border-gray-50 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-gray-800">API Keys!</h2>
+                <button class="px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition-all active:scale-95">
+                    + Create New Key
                 </button>
             </div>
-        </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50/50">
+                            <th class="px-8 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Name</th>
+                            <th class="px-8 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Key</th>
+                            <th class="px-8 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Created</th>
+                            <th class="px-8 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                        <Show when={!keys.loading} fallback={<tr><td colspan="4" class="p-8 text-center text-gray-400">Loading keys...</td></tr>}>
+                            <For each={keys()}
+                                 fallback={<tr><td colspan="4" class="p-8 text-center text-gray-400">No API keys found.</td></tr>}>
+                                {(key) => (
+                                  <tr class="hover:bg-gray-50/30 transition-colors">
+                                      <td class="px-8 py-5 font-semibold">{key.key_id}</td>
+                                      <td class="px-8 py-5 text-sm text-gray-500">{new Date(key.created_at).toLocaleDateString()}</td>
+                                      <td class="px-8 py-5">
+                                          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                              Active
+                                          </span>
+                                      </td>
+                                  </tr>
+                                )}
+                            </For>
+                        </Show>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
   );
 }

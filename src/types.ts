@@ -1,10 +1,4 @@
-export interface ClientProfile {
-  id: string;
-}
+import { paths } from "./api-spec-gen";
 
-export interface ApiKey {
-  id: string;
-  name: string;
-  prefix: string;
-  lastUsedAt: string | null;
-}
+export type ApiKey =
+  paths["/api/dashboard/api-keys"]["get"]["responses"][200]["content"]["application/json"][number];
