@@ -1,4 +1,6 @@
 node_modules
-dist
 .git
 .vscode
+src
+public
+dist
