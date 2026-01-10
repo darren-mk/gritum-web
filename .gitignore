@@ -28,3 +28,4 @@ config.edn
 .lsp/
 .output/
 .vinxi/
+.aider*
