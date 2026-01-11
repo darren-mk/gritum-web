@@ -2,9 +2,10 @@
 import { createResource, For, Show } from "solid-js";
 import { Title } from "@solidjs/meta";
 import { ApiKey } from "../types";
+import { getBaseUrl } from "../lib/api";
 
 const fetchApiKeys = async (): Promise<ApiKey[]> => {
-  const res = await fetch("/api/dashboard/api-keys");
+  const res = await fetch(`${getBaseUrl()}/api/dashboard/api-keys`);
   if (!res.ok) return [];
   return res.json();
 };
