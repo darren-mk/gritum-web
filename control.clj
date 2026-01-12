@@ -42,7 +42,7 @@
              "--image" remote-tag
              "--region" region
              "--project" project-id
-             "--set-env-vars" (str "API_URL=" backend-url
+             "--set-env-vars" (str "VITE_BACKEND_URL=" backend-url
                                    ",APP_ENV=" app-env
                                    ",HOST=0.0.0.0")
              "--allow-unauthenticated")))
