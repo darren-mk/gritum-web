@@ -6,23 +6,7 @@ export default function Home() {
   return (
     <main class="bg-white text-gray-900 font-sans">
       <Title>TRID Precheck | Early-Warning Compliance API</Title>
-
-      {/* Navigation */}
-      <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <span class="text-white font-black text-xs">TP</span>
-          </div>
-          <span class="text-xl font-bold tracking-tight">TRID Precheck</span>
-        </div>
-        <div class="space-x-8 text-sm font-medium text-gray-600">
-          <A href="/docs" class="hover:text-blue-600">Documentation</A>
-          <A href="/dashboard" class="px-5 py-2.5 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-all">
-            Console
-          </A>
-        </div>
-      </nav>
-
+      
       {/* Hero Section */}
       <header class="max-w-5xl mx-auto px-6 pt-24 pb-32 text-center">
         <span class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest uppercase bg-blue-50 text-blue-700 rounded-full">
