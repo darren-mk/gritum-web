@@ -1,6 +1,6 @@
 import { Title } from "@solidjs/meta";
 import { A } from "@solidjs/router";
-import CompanyCopyright from "../components/CompanyCopyright"
+import { CompanyCopyright } from "../components/Copyrights";
 
 export default function Signup() {
   return (
