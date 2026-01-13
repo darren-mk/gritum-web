@@ -1,7 +1,7 @@
 import { createSignal, Show } from "solid-js";
 import { useNavigate, A } from "@solidjs/router";
 import { Title } from "@solidjs/meta";
-import CompanyCopyright from "../components/CompanyCopyright"
+import { CompanyCopyright } from "../components/Copyrights";
 
 export default function Login() {
   const [email, setEmail] = createSignal("");
@@ -16,18 +16,14 @@ export default function Login() {
       const response = await fetch("/api/dashboard/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email(), password: password() }),
-      });
+        body: JSON.stringify({ email: email(), password: password() }),});
       if (response.ok) {
         navigate("/dashboard");
       } else {
         const data = await response.json();
-        setError(data.error || "Login failed");
-      }
+        setError(data.error || "Login failed");}
     } catch (err) {
-      setError("Network error. Please check your backend.");
-    }
-  };
+      setError("Network error. Please check your backend.");}};
 
   return (
     <div class="min-h-[calc(100vh-64px)] flex flex-col justify-center
